@@ -1,0 +1,15 @@
+.top-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #13181f;
+}
+.top-header h1 {
+    color: #fff;
+}
+.sub-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}

@@ -1,1 +1,15 @@
-<p>view-weather works!</p>
+<app-authentication-btn></app-authentication-btn>
+
+<div class='blog-post' *ngIf="authService.isAuthenticated$ | async">
+    <ng-container >
+        <app-weather *ngFor="let weather of currentWeather" [weather]="weather"></app-weather>
+    </ng-container>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="container center" *ngIf="(authService.isAuthenticated$ | async) === false">
+    <p style="text-align: center;">Login to view the weather details</p>
+</div>
