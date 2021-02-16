@@ -1,15 +1,36 @@
 .top-header {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #13181f;
+    align-items: center; 
 }
+
 .top-header h1 {
     color: #fff;
 }
+
 .sub-header {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 0;
+}
+
+#headerbg {  
+    height: 35%;
+    width: 100%;  
+    color: #fff;
+    background-image: url("../../../../assets/headerimg.png");  
+    background-size: 100% ;  
+    background-size: cover;  
+}
+
+::placeholder { 
+    color: rgb(119, 110, 110);
+    opacity: 1; 
+}
+
+input[type=text] {
+    border: 2px rgb(43, 40, 40);
+    border-radius: 2px;
+    color: white;
 }

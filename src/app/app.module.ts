@@ -14,6 +14,7 @@ import { AuthenticationBtnComponent } from './Components/authentication-btn/auth
 import { WeatherComponent } from './Components/weather/weather.component';
 
 import { AuthModule } from '@auth0/auth0-angular';
+import { FooterComponent } from './Components/Common/footer/footer.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     LogOutBtnComponent,
     AuthenticationBtnComponent,
     WeatherComponent,
+    FooterComponent,
     
   ],
   imports: [

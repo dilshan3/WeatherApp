@@ -18,11 +18,11 @@ export class WeatherService {
   }
   
   getWeatherDetails(cityCdes: any[]):Observable<any>{
-    let codes="";
-    let fullUrl="";
+    let codes = "";
+    let fullUrl = "";
 
     cityCdes.forEach((element) => {
-      codes += element +",";
+      codes += element + ",";
     });
 
     fullUrl = fullUrl.concat(this.url, codes, urlString, this.apiKey); 
