@@ -8,7 +8,6 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./log-out-btn.component.css']
 })
 export class LogOutBtnComponent implements OnInit {
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {

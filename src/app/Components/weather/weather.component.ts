@@ -6,12 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-
   @Input() weather;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

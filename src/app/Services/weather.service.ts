@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConstantService } from './constant.service';
+
+const urlString =  "&units=metric&appid=";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
+  apiKey = "";
+  url = "";
 
-  apiKey = 'c855d48a1407931428c1d7f302f4fc68';
-  url = 'http://api.openweathermap.org/data/2.5/group?id=';
-
-  constructor(private httpClient:HttpClient) {}
+  constructor(private httpClient:HttpClient, public constantService:ConstantService) {
+    this.url = this.constantService.API_ENDPOINT;
+    this.apiKey = this.constantService.API_KEY;
+  }
   
   getWeatherDetails(cityCdes: any[]):Observable<any>{
-
     let codes="";
+    let fullUrl="";
 
     cityCdes.forEach((element) => {
-
       codes += element +",";
-
     });
 
-    return this.httpClient.get(this.url + codes + "&units=metric&appid=" + this.apiKey);
+    fullUrl = fullUrl.concat(this.url, codes, urlString, this.apiKey); 
 
+    return this.httpClient.get(fullUrl);
   }
- 
 }

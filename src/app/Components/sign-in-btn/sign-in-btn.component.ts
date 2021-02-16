@@ -7,7 +7,6 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./sign-in-btn.component.css']
 })
 export class SignInBtnComponent implements OnInit {
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {

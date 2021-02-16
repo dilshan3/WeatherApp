@@ -7,12 +7,8 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./authentication-btn.component.css']
 })
 export class AuthenticationBtnComponent implements OnInit {
-
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
   }
-
-
-
 }

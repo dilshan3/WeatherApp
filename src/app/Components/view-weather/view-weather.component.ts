@@ -11,53 +11,34 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 
 export class ViewWeatherComponent implements OnInit {
-
   cityCodes: any= [];
   data: any=[];
   currentWeather: any[];
-
-
-  constructor(private httpClient: HttpClient, private weatherservice: WeatherService, 
-    public authService: AuthService) {
-
-    
-
-  }
+  
+  constructor(private httpClient: HttpClient, 
+    private weatherservice: WeatherService, 
+    public authService: AuthService) {}
 
   ngOnInit(): void {
-
     this.httpClient.get('../assets/cities.json').subscribe(data => {
-
       this.data = data;
       this.getCities();
       this.getCurrentWeather();
-      
     });
-
-    
   }
 
   getCities(){
-
     if(this.data){
-
       for(let tempCity of this.data.List){
-
         this.cityCodes.push(tempCity.CityCode);
       }
-
     }
   }
 
   getCurrentWeather(){
-
     this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
-
       this.currentWeather = data.list;
-
-    });
-    
+    });    
   }
-
 }  
 
