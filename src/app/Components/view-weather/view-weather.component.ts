@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherService } from '../../Services/weather.service';
 import { AuthService } from '@auth0/auth0-angular';
+import { async } from 'rxjs/internal/scheduler/async';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class ViewWeatherComponent implements OnInit {
   cityCodes: any= [];
   data: any=[];
   currentWeather: any[];
+  showSpinner: boolean = true;
   
   constructor(private httpClient: HttpClient, 
     private weatherservice: WeatherService, 
@@ -36,9 +38,13 @@ export class ViewWeatherComponent implements OnInit {
   }
 
   getCurrentWeather(){
-    this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
-      this.currentWeather = data.list;
-    });    
+    if(this.authService.isAuthenticated$){
+      console.log(this.authService.user$);
+      this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
+        this.currentWeather = data.list;
+        this.showSpinner = false;
+      });
+    }     
   }
 }  
 

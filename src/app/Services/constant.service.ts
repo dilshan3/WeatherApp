@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,6 @@ export class ConstantService {
 
   constructor() {
     this.API_ENDPOINT = 'http://api.openweathermap.org/data/2.5/group?id=';
-    this.API_KEY = 'c855d48a1407931428c1d7f302f4fc68'; 
+    this.API_KEY = environment.OPENWEATHER_CONFIG.APIKEY;
   }
 }

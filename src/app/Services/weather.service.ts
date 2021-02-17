@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ConstantService } from './constant.service';
 
 const urlString =  "&units=metric&appid=";
@@ -12,7 +13,8 @@ export class WeatherService {
   apiKey = "";
   url = "";
 
-  constructor(private httpClient:HttpClient, public constantService:ConstantService) {
+  constructor(private httpClient:HttpClient, 
+    public constantService:ConstantService){
     this.url = this.constantService.API_ENDPOINT;
     this.apiKey = this.constantService.API_KEY;
   }
@@ -27,6 +29,21 @@ export class WeatherService {
 
     fullUrl = fullUrl.concat(this.url, codes, urlString, this.apiKey); 
 
-    return this.httpClient.get(fullUrl);
+    return this.httpClient
+    .get(fullUrl)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
-}
+
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage); 
+  }
+}    
