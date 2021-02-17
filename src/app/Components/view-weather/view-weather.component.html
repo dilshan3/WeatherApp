@@ -1,5 +1,3 @@
-<app-authentication-btn></app-authentication-btn>
-
 <div class='blog-post' *ngIf="authService.isAuthenticated$ | async">
     <ng-container >
         <app-weather style="padding-left:50px;" *ngFor="let weather of currentWeather" [weather]="weather"></app-weather>
