@@ -14,5 +14,6 @@ export class LogOutBtnComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    localStorage.clear();
   }
 }
