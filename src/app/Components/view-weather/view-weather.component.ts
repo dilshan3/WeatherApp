@@ -36,13 +36,10 @@ export class ViewWeatherComponent implements OnInit {
   }
 
   getCurrentWeather(){
-    if(this.authService.isAuthenticated$){
-      console.log(this.authService.user$);
-      this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
-        this.currentWeather = data.list;
-        this.showSpinner = false;
-      });
-    }     
+    this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
+      this.currentWeather = data.list;
+      this.showSpinner = false;
+    });     
   }
 }  
 

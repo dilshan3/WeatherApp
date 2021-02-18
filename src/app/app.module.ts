@@ -37,7 +37,8 @@ import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-sp
     AuthModule.forRoot({
       domain: environment.AUTH_CONFIG.DOMAIN,
       clientId: environment.AUTH_CONFIG.CLIENTId,
-      redirectUri: environment.AUTH_CONFIG.redirectUri
+      redirectUri: environment.AUTH_CONFIG.redirectUri,
+      cacheLocation: 'localstorage'
     }),
   ],
   providers: [],
