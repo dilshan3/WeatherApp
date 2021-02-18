@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { ConstantService } from './constant.service';
 
-const urlString =  "&units=metric&appid=";
+const URL_STRING =  "&units=metric&appid=";
+const CACHE_SIZE = 1;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ const urlString =  "&units=metric&appid=";
 export class WeatherService {
   apiKey = "";
   url = "";
+  private cache: Observable<any>;
 
   constructor(private httpClient:HttpClient, 
     public constantService:ConstantService){
@@ -27,7 +29,7 @@ export class WeatherService {
       codes += element + ",";
     });
 
-    fullUrl = fullUrl.concat(this.url, codes, urlString, this.apiKey); 
+    fullUrl = fullUrl.concat(this.url, codes, URL_STRING, this.apiKey); 
 
     return this.httpClient
     .get(fullUrl)

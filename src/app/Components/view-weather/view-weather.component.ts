@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherService } from '../../Services/weather.service';
 import { AuthService } from '@auth0/auth0-angular';
-import { async } from 'rxjs/internal/scheduler/async';
-
 
 @Component({
   selector: 'app-view-weather',
