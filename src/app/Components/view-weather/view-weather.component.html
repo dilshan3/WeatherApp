@@ -1,7 +1,10 @@
+    
 <div class='blog-post' *ngIf="authService.isAuthenticated$ | async">
     <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner> 
-    <ng-container >
-        <app-weather style="padding-left:50px;" *ngFor="let weather of currentWeather" [weather]="weather"></app-weather>
+    <ng-container>
+        <app-weather class="weather"
+            *ngFor="let weather of currentWeather" [weather]="weather">
+        </app-weather>
     </ng-container>
 </div>
 
@@ -10,5 +13,5 @@
 <br>
 
 <div class="container center" *ngIf="(authService.isAuthenticated$ | async) === false">
-    <p style="text-align: center;">Login to view the weather details</p>
+    <p class="p-weather">Login to view the weather details</p>
 </div>

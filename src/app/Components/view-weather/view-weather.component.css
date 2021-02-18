@@ -4,3 +4,11 @@
     border: 1px solid #0F011F;
     padding: 10px;
 }
+
+.weather{
+    padding-left: 50px;
+}
+
+.p-weather{
+    text-align: center;
+}
