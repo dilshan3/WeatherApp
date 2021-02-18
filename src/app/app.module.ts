@@ -17,6 +17,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 
 import { environment } from '../environments/environment';
 import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
+import { HomeComponent } from './Components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-sp
     AuthenticationBtnComponent,
     WeatherComponent,
     FooterComponent,
-    LoadingSpinnerComponent,    
+    LoadingSpinnerComponent,
+    HomeComponent,    
   ],
   imports: [
     BrowserModule,

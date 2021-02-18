@@ -13,7 +13,7 @@ export class WeatherService {
   apiKey = "";
   url = "";
   cacheKey = "";
-  
+
   private cache: Observable<any>;
 
   constructor(private httpClient:HttpClient, 
@@ -47,7 +47,6 @@ export class WeatherService {
       startWith(JSON.parse(localStorage[this.cacheKey] || '[]'))
     );
 
-    console.log(cityWeathers);
     return cityWeathers;
   }
 
