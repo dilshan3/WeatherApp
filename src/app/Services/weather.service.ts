@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { catchError, startWith } from 'rxjs/operators';
 import { ConstantService } from './constant.service';
+import { ErrorsService } from './errors.service';
 
 const URL_STRING =  "&units=metric&appid=";
 
@@ -14,10 +15,9 @@ export class WeatherService {
   url = "";
   cacheKey = "";
 
-  private cache: Observable<any>;
-
   constructor(private httpClient:HttpClient, 
-    public constantService:ConstantService){
+    public constantService:ConstantService,
+    private errorsService: ErrorsService){
     this.url = this.constantService.API_ENDPOINT;
     this.apiKey = this.constantService.API_KEY;
     this.cacheKey = this.constantService.CACHE_KEY;
@@ -28,6 +28,19 @@ export class WeatherService {
     let fullUrl = "";
     let cityWeathers;
 
+    // if(localStorage.getItem(this.cacheKey)){
+    //   try{
+    //     cityWeathers = cityWeathers.pipe(
+    //       startWith(JSON.parse(localStorage.getItem(this.cacheKey) || '[]'))
+    //     );
+    //   }catch(e){
+    //     console.log("Error: ",e);
+    //   }
+  
+    //   console.log("asdass");
+    //   return cityWeathers;
+    // }
+
     cityCdes.forEach((element) => {
       codes += element + ",";
     });
@@ -36,28 +49,26 @@ export class WeatherService {
 
     cityWeathers = this.httpClient.get(fullUrl)
     .pipe(
-      catchError(this.handleError)
+      catchError(this.errorsService.handleError)
     );
 
     cityWeathers.subscribe(data => {
-      localStorage[this.cacheKey] = JSON.stringify(data);
+      try{
+        localStorage.setItem(this.cacheKey, JSON.stringify(data));
+      }catch(e){
+        console.log("Error: ",e);
+      }
+      
     });
 
-    cityWeathers = cityWeathers.pipe(
-      startWith(JSON.parse(localStorage[this.cacheKey] || '[]'))
-    );
+    try{
+      cityWeathers = cityWeathers.pipe(
+        startWith(JSON.parse(localStorage.getItem(this.cacheKey) || '[]'))
+      );
+    }catch(e){
+      console.log("Error: ",e);
+    }
 
     return cityWeathers;
-  }
-
-  handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage); 
   }
 }    

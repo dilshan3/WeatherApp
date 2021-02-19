@@ -14,6 +14,10 @@ export class LogOutBtnComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    localStorage.clear();
+    try{
+      localStorage.clear();
+    }catch(e){
+      console.log('Error: ', e);
+    }
   }
 }

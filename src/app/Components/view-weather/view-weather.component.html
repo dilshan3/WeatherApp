@@ -1,6 +1,8 @@
     
 <div class='blog-post' *ngIf="authService.isAuthenticated$ | async">
-    <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner> 
+    <div class="div-spinner">
+        <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+    </div>     
     <ng-container>
         <app-weather class="weather"
             *ngFor="let weather of currentWeather" [weather]="weather">

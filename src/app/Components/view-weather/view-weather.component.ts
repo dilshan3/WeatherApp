@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherService } from '../../Services/weather.service';
+import { CityService } from '../../Services/city.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -15,12 +16,12 @@ export class ViewWeatherComponent implements OnInit {
   currentWeather: any[];
   showSpinner: boolean = true;
   
-  constructor(private httpClient: HttpClient, 
-    private weatherservice: WeatherService, 
-    public authService: AuthService) {}
+  constructor(private weatherservice: WeatherService, 
+    public authService: AuthService,
+    private cityService: CityService) {}
 
   ngOnInit(): void {
-    this.httpClient.get('../assets/cities.json').subscribe(data => {
+    this.data = this.cityService.getCityDetails().subscribe(data => {
       this.data = data;
       this.getCities();
       this.getCurrentWeather();
