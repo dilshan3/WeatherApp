@@ -1,0 +1,55 @@
+.top-header {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.top-header h1 {
+    color: #fff;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#headerbg {  
+    height: 35%;
+    width: 100%;  
+    color: #fff;
+    background-image: url("../../../../assets/headerimg.png");  
+    background-size: 100% ;  
+    background-size: cover;  
+}
+
+::placeholder { 
+    color: rgb(119, 110, 110);
+    opacity: 1; 
+}
+
+input[type=text] {
+    border: 2px rgb(43, 40, 40);
+    border-radius: 2px;
+    color: white;
+}
+
+.top-corner{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+}
+
+.img-header{
+    width: 50px;
+    height: 40px; 
+    margin-top: 1%;
+}
+
+.h4-header{
+    padding-top: 8%;
+    padding-bottom: 5%;
+    padding-left: 15px;
+}

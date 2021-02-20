@@ -1,0 +1,5 @@
+<app-sign-in-btn *ngIf="(authService.isAuthenticated$ | async) === false">
+</app-sign-in-btn>
+
+<app-log-out-btn *ngIf="authService.isAuthenticated$ | async">
+</app-log-out-btn>

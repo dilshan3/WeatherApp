@@ -1,0 +1,4 @@
+<div class="container center" *ngIf="(authService.isAuthenticated$ | async) === false">
+    <p class="p-home">Login to view the weather details</p>
+</div>
+<app-view-weather *ngIf="(authService.isAuthenticated$ | async)"></app-view-weather>
