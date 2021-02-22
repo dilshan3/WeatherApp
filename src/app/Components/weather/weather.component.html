@@ -13,8 +13,8 @@
                 </td>
                 <td>
                     <h1>{{ weather.main.temp + ' C' }}</h1>
-                    <p>{{ "Temp Min:" + weather.main.temp_min }}</p>
-                    <p>{{ "Temp Max:" + weather.main.temp_max }}</p>  
+                    <p>{{ "Temp Min: " + weather.main.temp_min }}</p>
+                    <p>{{ "Temp Max: " + weather.main.temp_max }}</p>  
                 </td>    
             </tr>
         </tbody>
@@ -23,12 +23,12 @@
         <tbody>
             <tr>
                 <td>
-                    <p class="p-light">{{ "Pressure:" + weather.main.pressure + "Pa" }}</p>
-                    <p class="p-light">{{ "Humidity:" + weather.main.humidity + "%" }}</p>
-                    <p class="p-light">{{ "Visibility:" + (weather.main.visibility / 1000) + "km" }}</p>
+                    <p class="p-light">{{ "Pressure: " + weather.main.pressure + " Pa" }}</p>
+                    <p class="p-light">{{ "Humidity: " + weather.main.humidity + "%" }}</p>
+                    <p class="p-light">{{ "Visibility: " + (weather.visibility / 1000)  + " km" }}</p>
                 </td>
                 <td>
-                    <p class="p-light">{{ weather.wind.speed + "m/s " + weather.wind.deg + " Degree" }}</p>
+                    <p class="p-light">{{ weather.wind.speed + " m/s " + weather.wind.deg + " Degree" }}</p>
                 </td>
                 <td>
                     
