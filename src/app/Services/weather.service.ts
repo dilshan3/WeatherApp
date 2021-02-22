@@ -30,15 +30,52 @@ export class WeatherService {
     let codes = "";
     let fullUrl = "";
     let cityWeathers: any;
-    let cacheDate, localStorageSize, timeDiff;
+    let cacheDate;
+
+    cityCdes.forEach((element) => {
+      codes += element + ",";
+    });
+
+    fullUrl = fullUrl.concat(this.url, codes, URL_STRING, this.apiKey); 
+
+    cityWeathers = this.httpClient.get(fullUrl)
+    .pipe(
+      catchError(this.errorsService.handleError)
+    );
+
+    cityWeathers.subscribe((data) => {
+      localStorage.setItem(this.cacheKey, JSON.stringify(data.list));
+    });
+
+    cacheDate = new Date();
+
+    try{
+      localStorage.setItem(CACHE_DATE_KEY, cacheDate);
+    }catch(e){
+      console.log('Error: ', e);
+    }
+
+    return cityWeathers;       
+  } 
+  
+  getFromCache(): any[]{
+    let cityWeathers;
+
+    cityWeathers = JSON.parse(localStorage.getItem(this.cacheKey));
+
+    return cityWeathers;
+  }
+
+  getTimeDiff(): number{
+    let localStorageSize, timeDiff, cacheDate;
 
     try{
       localStorageSize = localStorage.length;
     }catch(e){
       console.log('Error: ', e);
     }
-
-    if(localStorageSize > 1){
+    
+    if(localStorageSize > 2){
       try{
         cacheDate = new Date(localStorage.getItem(CACHE_DATE_KEY));
       }catch(e){
@@ -46,50 +83,9 @@ export class WeatherService {
       }
 
       let newDate = new Date();
-      timeDiff = ((newDate.getTime() - cacheDate.getTime()) / 6000);
-
-      if(timeDiff < 5){
-        this.lStorage.getItem(this.cacheKey).subscribe((data) => {
-          cityWeathers = data;
-          
-        }, (e) => {
-          console.log('Error: ', e);
-        });
-
-        return cityWeathers;
-      }
-    }
-    else{
-      let cityWeath;
-
-      cityCdes.forEach((element) => {
-        codes += element + ",";
-      });
-
-      fullUrl = fullUrl.concat(this.url, codes, URL_STRING, this.apiKey); 
-
-      cityWeathers = this.httpClient.get(fullUrl)
-      .pipe(
-        catchError(this.errorsService.handleError)
-      );
-
-      cityWeathers.subscribe((data) => {
-        cityWeath = data;
-        this.lStorage.setItem(this.cacheKey, data).subscribe(() => {}, 
-        (e) => {
-          console.log(e)
-        });
-      });
-
-      cacheDate = new Date();
-
-      try{
-        localStorage.setItem(CACHE_DATE_KEY, cacheDate);
-      }catch(e){
-        console.log('Error: ', e);
-      }
-
-      return cityWeathers;
+      timeDiff = ((newDate.getTime() - cacheDate.getTime()) / 60000);
+      console.log(timeDiff)
+      return timeDiff;
     } 
-  }    
-}
+  }
+}  

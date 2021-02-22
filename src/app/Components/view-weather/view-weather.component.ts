@@ -37,10 +37,20 @@ export class ViewWeatherComponent implements OnInit {
   }
 
   getCurrentWeather(){
-    this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
-      this.currentWeather = data.list;
+    let timeDiff: any;
+
+    timeDiff = this.weatherservice.getTimeDiff();
+
+    if(timeDiff < 5){
+      this.currentWeather = this.weatherservice.getFromCache();
       this.showSpinner = false;
-    });  
+    }
+    else{
+      this.weatherservice.getWeatherDetails(this.cityCodes).subscribe((data) => {
+        this.currentWeather = data.list;
+        this.showSpinner = false;
+      }); 
+    }
   }
 }  
 

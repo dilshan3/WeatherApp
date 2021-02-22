@@ -21,10 +21,5 @@ export class LogOutBtnComponent implements OnInit {
     }catch(e){
       console.log('Error: ', e);
     }
-
-    this.lStorage.clear().subscribe(() => {}, 
-        (e) => {
-          console.log(e)
-    });
   }
 }
