@@ -8,6 +8,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 
 const URL_STRING =  "&units=metric&appid=";
 const CACHE_DATE_KEY = 'cacheDate';
+const CACHE_IDS = 'IDs'
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +32,25 @@ export class WeatherService {
     let fullUrl = "";
     let cityWeathers: any;
     let cacheDate;
+    let localStorageSize;
 
     cityCdes.forEach((element) => {
       codes += element + ",";
     });
+
+    try{
+      localStorageSize = localStorage.length;
+    }catch(e){
+      console.log('Error: ', e);
+    }
+    
+    if(localStorageSize > 1){
+      try{
+        localStorage.setItem(CACHE_IDS, codes);
+      }catch(e){
+        console.log('Error: ', e);
+      }
+    }
 
     fullUrl = fullUrl.concat(this.url, codes, URL_STRING, this.apiKey); 
 
@@ -61,8 +77,12 @@ export class WeatherService {
   getFromCache(): any[]{
     let cityWeathers;
 
-    cityWeathers = JSON.parse(localStorage.getItem(this.cacheKey));
-
+    try{
+      cityWeathers = JSON.parse(localStorage.getItem(this.cacheKey));
+    }catch(e){
+      console.log('Error: ', e);
+    }
+    
     return cityWeathers;
   }
 
@@ -87,5 +107,34 @@ export class WeatherService {
       console.log(timeDiff)
       return timeDiff;
     } 
+  }
+
+  checkCache(cityCodes: string[]): boolean{
+    let cachedCities;
+    let cityString = "";
+
+    cityCodes.forEach((element) => {
+      cityString += element + ",";
+    });
+
+    try{
+      cachedCities = localStorage.getItem(CACHE_IDS);
+    }catch(e){
+      console.log('Error: ', e);
+      return false;
+    }
+
+    if(cachedCities == cityString){
+      return true;
+    }
+    else{
+      try{
+        localStorage.setItem(CACHE_IDS, cityString);
+      }catch(e){
+        console.log('Error: ', e);
+        return false;
+      }
+      return false;
+    }
   }
 }  
