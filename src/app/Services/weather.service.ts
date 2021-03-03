@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, startWith } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ConstantService } from './constant.service';
 import { ErrorsService } from './errors.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
 
 const URL_STRING =  "&units=metric&appid=";
 const CACHE_DATE_KEY = 'cacheDate';
@@ -20,8 +18,7 @@ export class WeatherService {
 
   constructor(private httpClient:HttpClient, 
     public constantService:ConstantService,
-    private errorsService: ErrorsService,
-    protected lStorage: LocalStorage){
+    private errorsService: ErrorsService){
     this.url = this.constantService.API_ENDPOINT;
     this.apiKey = this.constantService.API_KEY;
     this.cacheKey = this.constantService.CACHE_KEY;
@@ -44,7 +41,7 @@ export class WeatherService {
       console.log('Error: ', e);
     }
     
-    if(localStorageSize > 1){
+    if(localStorageSize > 0){
       try{
         localStorage.setItem(CACHE_IDS, codes);
       }catch(e){
