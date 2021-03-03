@@ -43,7 +43,6 @@ export class ViewWeatherComponent implements OnInit {
 
     if(timeDiff < 5){
       if(this.weatherservice.checkCache(this.cityCodes)){
-        
         this.currentWeather = this.weatherservice.getFromCache();
         this.showSpinner = false;
       }

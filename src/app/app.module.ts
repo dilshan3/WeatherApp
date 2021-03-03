@@ -15,7 +15,7 @@ import { FooterComponent } from './Components/Common/footer/footer.component';
 
 import { AuthModule } from '@auth0/auth0-angular';
 
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
 import { HomeComponent } from './Components/home/home.component';
 
